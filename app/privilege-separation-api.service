@@ -1,0 +1,11 @@
+[Unit]
+Description=Privilege separation api service    
+
+[Service]
+User=root
+WorkingDirectory=/app/out
+ExecStart=/usr/bin/dotnet Monitor.dll
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

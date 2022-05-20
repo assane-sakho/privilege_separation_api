@@ -1,4 +1,4 @@
-# RBAC User Management
+# Privilige Separation API
 
 1. Clone the project:
 
@@ -28,4 +28,5 @@
 ```
 
 Url of phpmyadmin : http://localhost:8088/index.php?route=/database/structure&db=clothers
+
 Url of api: http://127.0.0.1:8080/Sales

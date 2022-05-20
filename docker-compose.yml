@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+
+    db_psa:
+        build : ./db
+        container_name: db_psa
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+            MYSQL_DATABASE: "clothers"
+        restart: always
+        volumes:
+            - ./db/data:/var/lib/mysql:rw
+        command:
+            - mysqld
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_unicode_ci
+        ports:
+            - "3328:3306"
+    phpmyadmin:
+        image: phpmyadmin:latest
+        restart: unless-stopped
+        ports:
+            - 8088:80
+        environment:
+            PMA_HOST: db_psa
+            PMA_USER: root
+        depends_on:
+            - db_psa
+    dotnet:
+        container_name: app
+        build: ./app
+        ports:
+            - 8080:8080
+        command: tail -F anything
+        environment:
+            connectionString: "server=db_psa;userid=root;database=clothers"
+            serverSignature: "MB7WYXsG7wmvAqbhT8sYeeVyVgHrFA4vrzVvBrkm"
+        depends_on:
+            - db_psa
+networks:
+    dev:

@@ -1,0 +1,9 @@
+
+.vs/
+
+bin/
+
+obj/
+
+db/data
+.history/
